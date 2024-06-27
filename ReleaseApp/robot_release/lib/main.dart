@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 
 void main() {
-  runApp(MyApp());
+  runApp(const MyApp());
 }
 
 class MyApp extends StatefulWidget {
-  MyApp({Key? key}) : super (key: key);
+  const MyApp({super.key});
 
   @override
   State<MyApp> createState() => _MyAppState();
@@ -16,7 +16,7 @@ class _MyAppState extends State<MyApp> {
 
   @override 
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return const MaterialApp(
       debugShowCheckedModeBanner: false,
       home: FirstPage()
     );
@@ -24,7 +24,7 @@ class _MyAppState extends State<MyApp> {
 }
 
 class FirstPage extends StatefulWidget {
-   FirstPage({Key? key}) : super (key: key);
+   const FirstPage({super.key});
 
   @override
   State<FirstPage> createState() => _FirstPageState();
@@ -39,9 +39,9 @@ class _FirstPageState extends State<FirstPage> {
         appBar: AppBar(
           title: Row(children: [
             Image.asset("images/dm-logo.png", height: 60),
-            const Text("Directed Machines Robot Release"),
-          ],)
-          
+            const Text("Directed Machines Robot Release", textScaler: TextScaler.linear(.5)),
+          ],),
+          automaticallyImplyLeading: false,
         ),
       body:  Center(
         child: Container(
@@ -59,7 +59,7 @@ class _FirstPageState extends State<FirstPage> {
                 ),
                 onPressed: () {
                   Navigator.of(context).push(MaterialPageRoute(builder: (BuildContext){
-                    return SecondPage();
+                    return RobotOverview();
                   }));
                 },
                 child: const Text("Click to begin release")),
@@ -71,12 +71,26 @@ class _FirstPageState extends State<FirstPage> {
   }
 }
 
-class SecondPage extends StatelessWidget {
-   SecondPage({Key? key}) : super (key: key);
-  int currentState = 0;
+class RobotOverview extends StatefulWidget {
+   RobotOverview({super.key});
+
+  @override
+  State<RobotOverview> createState() => _RobotOverviewState();
+}
+
+class _RobotOverviewState extends State<RobotOverview> {
+   String imageStr = "waiting for image";
+
   @override
   Widget build(BuildContext context){
     return Scaffold(
+      appBar: AppBar(
+        title: const Text("Overview Picture"),
+        automaticallyImplyLeading: false,
+      ),
+      body: Column(children: [
+        Center(child: Text(imageStr)),
+      ],),
       bottomNavigationBar: BottomNavigationBar(
         items: const [
           BottomNavigationBarItem(
@@ -85,19 +99,81 @@ class SecondPage extends StatelessWidget {
           ),
           BottomNavigationBarItem(
             label: "Take Photo/Screenshot",
-            icon: Icon(Icons.camera)),
+            icon: Icon(Icons.camera)
+          ),
           BottomNavigationBarItem(
             label: "Next",
-            icon: Icon(Icons.arrow_right_outlined))
+            icon: Icon(Icons.arrow_right_outlined)
+          )
         ],
-         currentIndex: currentState,
          onTap: (int index){
             if (index == 0){
               Navigator.of(context).push(MaterialPageRoute(builder: (BuildContext){
-                    return FirstPage();
+                    return const FirstPage();
                   }));
             }
             if (index == 1){
+              setState((){
+                imageStr = "button pressed";
+              });
+
+            }
+            if (index == 2){
+              Navigator.of(context).push(MaterialPageRoute(builder: (BuildContext){
+                    return LeftReduction();
+                  }));
+            }
+         },
+      ),
+    );
+  }
+}
+
+class LeftReduction extends StatefulWidget {
+   LeftReduction({super.key});
+
+  @override
+  State<LeftReduction> createState() => _LeftReduction();
+}
+
+class _LeftReduction extends State<LeftReduction> {
+   String imageStr = "waiting for image";
+
+  @override
+  Widget build(BuildContext context){
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text("Left Reduction"),
+        automaticallyImplyLeading: false,
+      ),
+      body: Column(children: [
+        Center(child: Text(imageStr)),
+      ],),
+      bottomNavigationBar: BottomNavigationBar(
+        items: const [
+          BottomNavigationBarItem(
+            label: "Previous",
+            icon: Icon(Icons.arrow_left_outlined)
+          ),
+          BottomNavigationBarItem(
+            label: "Take Photo/Screenshot",
+            icon: Icon(Icons.camera)
+          ),
+          BottomNavigationBarItem(
+            label: "Next",
+            icon: Icon(Icons.arrow_right_outlined)
+          )
+        ],
+         onTap: (int index){
+            if (index == 0){
+              Navigator.of(context).push(MaterialPageRoute(builder: (BuildContext){
+                    return RobotOverview();
+                  }));
+            }
+            if (index == 1){
+              setState((){
+                imageStr = "button pressed";
+              });
 
             }
             if (index == 2){
