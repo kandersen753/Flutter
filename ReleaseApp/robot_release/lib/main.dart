@@ -79,7 +79,7 @@ class RobotOverview extends StatefulWidget {
 }
 
 class _RobotOverviewState extends State<RobotOverview> {
-   String imageStr = "waiting for image";
+  static String imageStr = "waiting for image";
 
   @override
   Widget build(BuildContext context){
@@ -137,7 +137,7 @@ class LeftReduction extends StatefulWidget {
 }
 
 class _LeftReduction extends State<LeftReduction> {
-   String imageStr = "waiting for image";
+  static String imageStr = "waiting for image";
 
   @override
   Widget build(BuildContext context){
