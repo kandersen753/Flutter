@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:webview_flutter/webview_flutter.dart';
 
 void main() {
   runApp(const MyApp());
@@ -59,7 +60,7 @@ class _FirstPageState extends State<FirstPage> {
                 ),
                 onPressed: () {
                   Navigator.of(context).push(MaterialPageRoute(builder: (BuildContext){
-                    return RobotOverview();
+                    return const RobotOverview();
                   }));
                 },
                 child: const Text("Click to begin release")),
@@ -72,7 +73,7 @@ class _FirstPageState extends State<FirstPage> {
 }
 
 class RobotOverview extends StatefulWidget {
-   RobotOverview({super.key});
+   const RobotOverview({super.key});
 
   @override
   State<RobotOverview> createState() => _RobotOverviewState();
@@ -120,7 +121,7 @@ class _RobotOverviewState extends State<RobotOverview> {
             }
             if (index == 2){
               Navigator.of(context).push(MaterialPageRoute(builder: (BuildContext){
-                    return LeftReduction();
+                    return const LeftReduction();
                   }));
             }
          },
@@ -130,7 +131,7 @@ class _RobotOverviewState extends State<RobotOverview> {
 }
 
 class LeftReduction extends StatefulWidget {
-   LeftReduction({super.key});
+   const LeftReduction({super.key});
 
   @override
   State<LeftReduction> createState() => _LeftReduction();
@@ -167,7 +168,7 @@ class _LeftReduction extends State<LeftReduction> {
          onTap: (int index){
             if (index == 0){
               Navigator.of(context).push(MaterialPageRoute(builder: (BuildContext){
-                    return RobotOverview();
+                    return const RobotOverview();
                   }));
             }
             if (index == 1){
