@@ -1,5 +1,7 @@
+import 'dart:async';
+import 'dart:typed_data';
 import 'package:flutter/material.dart';
-import 'package:webview_flutter/webview_flutter.dart';
+import 'package:webview_flutter_platform_interface/webview_flutter_platform_interface.dart';
 
 void main() {
   runApp(const MyApp());
@@ -139,6 +141,18 @@ class LeftReduction extends StatefulWidget {
 
 class _LeftReduction extends State<LeftReduction> {
   static String imageStr = "waiting for image";
+  final PlatformWebViewController myWebController = PlatformWebViewController(
+    const PlatformWebViewControllerCreationParams(),
+      )..loadRequest(LoadRequestParams(uri: Uri.parse('65.76.28.160:8000'),
+    ),
+  );
+      /*late final WebViewController myWebController;
+  @override
+  void initState(){
+    super.initState();
+    myWebController = WebViewController()
+    ..loadRequest(Uri.parse('65.76.28.160:8000'),);
+  }*/
 
   @override
   Widget build(BuildContext context){
@@ -148,7 +162,10 @@ class _LeftReduction extends State<LeftReduction> {
         automaticallyImplyLeading: false,
       ),
       body: Column(children: [
-        Center(child: Text(imageStr)),
+        PlatformWebViewWidget(
+            PlatformWebViewWidgetCreationParams(controller: myWebController),
+          ).build((context))
+        //Center(child: Text(imageStr)),
       ],),
       bottomNavigationBar: BottomNavigationBar(
         items: const [
