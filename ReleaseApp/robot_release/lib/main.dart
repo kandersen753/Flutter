@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'dart:typed_data';
 import 'package:flutter/material.dart';
-import 'package:webview_flutter_platform_interface/webview_flutter_platform_interface.dart';
+import 'package:webview_flutter/webview_flutter.dart';
 
 void main() {
   runApp(const MyApp());
@@ -141,18 +141,20 @@ class LeftReduction extends StatefulWidget {
 
 class _LeftReduction extends State<LeftReduction> {
   static String imageStr = "waiting for image";
-  final PlatformWebViewController myWebController = PlatformWebViewController(
-    const PlatformWebViewControllerCreationParams(),
-      )..loadRequest(LoadRequestParams(uri: Uri.parse('65.76.28.160:8000'),
+  /*final PlatformWebViewController myWebController = PlatformWebViewController(
+    const PlatformWebViewControllerCreationParams(), 
+      )..loadRequest(LoadRequestParams(uri: Uri.parse("https://directedmachines.com/dashboard/ui/"),
+
     ),
-  );
-      /*late final WebViewController myWebController;
+  );*/
+  late final WebViewController myWebController;
   @override
   void initState(){
     super.initState();
     myWebController = WebViewController()
-    ..loadRequest(Uri.parse('65.76.28.160:8000'),);
-  }*/
+    ..loadRequest(Uri.parse("http://65.76.28.160:8000/dashboard/ui/"),);
+    myWebController.setJavaScriptMode(JavaScriptMode.unrestricted);
+  }
 
   @override
   Widget build(BuildContext context){
@@ -161,12 +163,18 @@ class _LeftReduction extends State<LeftReduction> {
         title: const Text("Left Reduction"),
         automaticallyImplyLeading: false,
       ),
-      body: Column(children: [
-        PlatformWebViewWidget(
-            PlatformWebViewWidgetCreationParams(controller: myWebController),
-          ).build((context))
-        //Center(child: Text(imageStr)),
-      ],),
+      body:
+      WebViewWidget(controller: myWebController),
+       /*SizedBox(
+        width: MediaQuery.of(context).size.width,
+        height: MediaQuery.of(context).size.height,
+        child: Column(children: [
+          PlatformWebViewWidget(
+              PlatformWebViewWidgetCreationParams(controller: myWebController),
+            ).build((context))
+          //Center(child: Text(imageStr)),
+        ],),
+      ),*/
       bottomNavigationBar: BottomNavigationBar(
         items: const [
           BottomNavigationBarItem(
